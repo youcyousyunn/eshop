@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.sys.dao.IAddressInfoDao">
+<insert id="saveAddress" parameterType="com.ycs.sys.domain.po.AddressInfoPo">
+  	INSERT INTO t_sys_user_address (
+		NAME,
+		USR_NO,
+		COUNTRY_ID,
+		PROVINCE_ID,
+		CITY_ID,
+		DISTRICT_ID,
+		ADDRESS,
+		MOBILE,
+		IS_DEFAULT)
+  	VALUES(
+		#{name,jdbcType=VARCHAR}, 
+  		#{usrNo,jdbcType=VARCHAR},
+  		#{countryId,jdbcType=INTEGER},
+  		#{provinceId,jdbcType=INTEGER},
+  		#{cityId,jdbcType=INTEGER},
+  		#{districtId,jdbcType=INTEGER},
+  		#{address,jdbcType=VARCHAR},
+  		#{mobile,jdbcType=VARCHAR},
+  		#{isDefault,jdbcType=INTEGER}
+	)
+  </insert>
+  
+  <delete id="deleteAddress" parameterType="java.lang.String">
+  	DELETE from t_sys_user_address
+  	<where>
+  		<if test="_parameter != null">
+  			ID = #{id}
+  		</if>
+  	</where>
+  </delete>
+  
+  <update id="updateAddress" parameterType="com.ycs.sys.domain.po.AddressInfoPo">
+  	UPDATE t_sys_user_address
+  	<set>
+  		<if test="name != null">
+  			NAME = #{name},
+  		</if>
+  		<if test="usrNo != null">
+  			USR_NO = #{usrNo},
+  		</if>
+  		<if test="countryId != null">
+  			COUNTRY_ID = #{countryId},
+  		</if>
+  		<if test="provinceId != null">
+  			PROVINCE_ID = #{provinceId},
+  		</if>
+  		<if test="cityId != null">
+  			CITY_ID = #{cityId},
+  		</if>
+  		<if test="districtId != null">
+  			DISTRICT_ID = #{districtId},
+  		</if>
+  		<if test="address != null">
+  			ADDRESS = #{address},
+  		</if>
+  		<if test="mobile != null">
+  			MOBILE = #{mobile},
+  		</if>
+  		<if test="isDefault != null">
+  			IS_DEFAULT = #{isDefault}
+  		</if>
+  	</set>
+  	<where>
+  		<if test="id != null">
+  			ID = #{id}
+  		</if>
+  	</where>
+  </update>
+  
+  <select id="queryAddressLst" resultType="com.ycs.sys.domain.po.AddressInfoPo">
+    SELECT 
+    	ID id, 
+	    NAME name, 
+	    USR_NO usrNo, 
+	    COUNTRY_ID countryId, 
+	    PROVINCE_ID provinceId, 
+	    CITY_ID cityId, 
+	    DISTRICT_ID districtId, 
+	    (select a.name from t_sys_region a where a.id = t.PROVINCE_ID) provinceNm,
+	    (select a.name from t_sys_region a where a.id = t.CITY_ID) cityNm,
+	    (select a.name from t_sys_region a where a.id = t.DISTRICT_ID) districtNm,
+	    ADDRESS address, 
+	    MOBILE mobile, 
+	    IS_DEFAULT isDefault
+    FROM t_sys_user_address t
+    <where>
+    	<if test="_parameter != null">
+    		and t.USR_NO = #{usrNo}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="getAddressDetail" resultType="com.ycs.sys.domain.po.AddressInfoPo">
+    SELECT 
+    	ID id, 
+	    NAME name, 
+	    USR_NO usrNo, 
+	    COUNTRY_ID countryId, 
+	    PROVINCE_ID provinceId, 
+	    CITY_ID cityId, 
+	    DISTRICT_ID districtId, 
+	    (select a.name from t_sys_region a where a.id = t.PROVINCE_ID) provinceNm,
+	    (select a.name from t_sys_region a where a.id = t.CITY_ID) cityNm,
+	    (select a.name from t_sys_region a where a.id = t.DISTRICT_ID) districtNm,
+	    ADDRESS address, 
+	    MOBILE mobile, 
+	    IS_DEFAULT isDefault
+    FROM t_sys_user_address t
+    <where>
+    	<if test="_parameter != null">
+    		and t.ID = #{id}
+    	</if>
+    </where>
+  </select>
+  
+
+  
+</mapper>

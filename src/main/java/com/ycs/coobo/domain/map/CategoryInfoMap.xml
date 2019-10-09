@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.coobo.dao.IProductInfoDao">
+  <select id="queryCategoryLst" parameterType="java.util.Map" resultType="com.ycs.coobo.domain.po.CategoryInfoPo">
+    SELECT 
+    	ID id,
+		NAME name,
+		KEYWORD keyword,
+		ICON_URL iconUrl,
+		IMG_URL imgUrl,
+		BANNER_URL bannerUrl,
+		WAP_BANNER_URL wapBannerUrl,
+		LEVEL level,
+		TYPE type,
+		PARENT_ID parentId,
+		SHOW_INDEX showIndex,
+		IS_SHOW isShow,
+		FRONT_NAME frontName,
+		FRONT_DESC frontDesc,
+		SORT_ORDER sortOrder
+    FROM t_prd_category t 
+    <where>
+    	<if test="parentId != null">
+    		and t.PARENT_ID = #{parentId}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="queryCategoryDetail" resultType="com.ycs.coobo.domain.po.CategoryInfoPo">
+    SELECT 
+    	ID id,
+		NAME name,
+		KEYWORD keyword,
+		ICON_URL iconUrl,
+		IMG_URL imgUrl,
+		BANNER_URL bannerUrl,
+		WAP_BANNER_URL wapBannerUrl,
+		LEVEL level,
+		TYPE type,
+		PARENT_ID parentId,
+		SHOW_INDEX showIndex,
+		IS_SHOW isShow,
+		FRONT_NAME frontName,
+		FRONT_DESC frontDesc,
+		SORT_ORDER sortOrder
+    FROM t_prd_category t 
+    <where>
+    	<if test="_parameter != null">
+    		and t.ID = #{id}
+    	</if>
+    </where>
+  </select>
+
+  
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.coobo.dao.IWeixinOrderInfoDao">
+  <select id="qryCartCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT COUNT(1)
+    FROM t_coo_cart t 
+  </select>
+  
+  <select id="qryCartLst" parameterType="java.util.Map" resultType="com.ycs.coobo.domain.po.CartInfoPo">
+    SELECT 
+    	ID id,
+		USR_NO usrNo,
+		SESSION_ID sessionId,
+		GOODS_ID goodsId,
+		GOODS_SN goodsSn,
+		PRODUCT_ID productId,
+		GOODS_NAME goodsName,
+		MARKET_PRICE marketPrice,
+		RETAIL_PRICE retailPrice,
+		NUM num,
+		GOODS_SPEC_IDS goodsSpecIds,
+		GOODS_SPEC_VALUE goodsSpecValue,
+		CHECKED checked,
+		LIST_PIC_URL listPicUrl
+    FROM t_coo_cart t 
+  </select>
+
+  
+</mapper>

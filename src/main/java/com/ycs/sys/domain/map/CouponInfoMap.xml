@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.sys.dao.ICouponInfoDao">
+  <select id="queryCouponLst" resultType="com.ycs.sys.domain.po.CouponInfoPo">
+    SELECT 
+    	COUPON_ID id, 
+	    NAME name, 
+	    MONEY money, 
+	    TYPE type, 
+	    TAG tag, 
+	    CONTENT content, 
+	    MIN_AMOUNT minAmount, 
+	    MAX_AMOUNT maxAmount, 
+	    SEND_START_DATE sendStartDate, 
+	    SEND_END_DATE sendEndDate,
+	    USE_START_DATE useStartDate,
+	    USE_END_DATE useEndDate,
+	    MIN_GOODS_AMOUNT minGoodsAmount
+    FROM t_coo_coupon t 
+	inner join t_sys_user_coupon t1 on t1.coupon_id = t.id
+    <where>
+    	<if test="_parameter != null">
+    		and t1.USR_NO = #{usrNo}
+    	</if>
+    </where>
+  </select>
+
+  
+</mapper>

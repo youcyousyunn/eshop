@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.coobo.dao.IProductInfoDao">
+  <select id="queryBrandLst" resultType="com.ycs.coobo.domain.po.BrandInfoPo">
+    SELECT 
+    	ID id,
+		NAME name,
+		LIST_PIC_URL listPicUrl,
+		SIMPLE_DESC simpleDesc,
+		PIC_URL picUrl,
+		SORT_ORDER sortOrder,
+		IS_SHOW isShow,
+		FLOOR_PRICE floorPrice,
+		IS_NEW isNew,
+		NEW_PIC_URL newPicUrl,
+		NEW_SORT_ORDER newSortOrder
+    FROM t_prd_brand t 
+    <where>
+    	<if test="isNew != null">
+    		and IS_NEW = #{isNew}
+    	</if>
+    </where>
+    ORDER BY NEW_SORT_ORDER ASC
+    LIMIT 4
+  </select>
+  
+  <select id="qryBrandCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT COUNT(1) 
+    FROM t_prd_brand t
+    <where>
+    	<if test="name != null">
+    		and t.NAME LIKE <![CDATA['%${name}%']]> 
+    	</if>
+    </where>
+  </select>
+  
+  <select id="qryBrandLst" parameterType="java.util.Map" resultType="com.ycs.coobo.domain.po.BrandInfoPo">
+    SELECT 
+    	ID id,
+		NAME name,
+		LIST_PIC_URL listPicUrl,
+		SIMPLE_DESC simpleDesc,
+		PIC_URL picUrl,
+		SORT_ORDER sortOrder,
+		IS_SHOW isShow,
+		FLOOR_PRICE floorPrice,
+		APP_LIST_PIC_URL appListPicUrl,
+		IS_NEW isNew,
+		NEW_PIC_URL newPicUrl,
+		NEW_SORT_ORDER newSortOrder
+    FROM t_prd_brand t 
+    <where>
+    	<if test="name != null">
+    		and t.NAME LIKE <![CDATA['%${name}%']]>
+    	</if>
+    </where>
+    ORDER BY NEW_SORT_ORDER ASC
+    LIMIT #{startRow}, #{offset}
+  </select>
+  
+  <select id="queryBrandDetail" resultType="com.ycs.coobo.domain.po.BrandInfoPo">
+    SELECT 
+    	ID id,
+		NAME name,
+		LIST_PIC_URL listPicUrl,
+		SIMPLE_DESC simpleDesc,
+		PIC_URL picUrl,
+		SORT_ORDER sortOrder,
+		IS_SHOW isShow,
+		FLOOR_PRICE floorPrice,
+		APP_LIST_PIC_URL appListPicUrl,
+		IS_NEW isNew,
+		NEW_PIC_URL newPicUrl,
+		NEW_SORT_ORDER newSortOrder
+    FROM t_prd_brand t 
+    <where>
+    	<if test="_parameter != null">
+    		and t.ID = #{id}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="queryBrandDetailByGoodsId" resultType="com.ycs.coobo.domain.po.BrandInfoPo">
+    SELECT 
+		t.ID id,
+		t.NAME name,
+		t.LIST_PIC_URL listPicUrl,
+		SIMPLE_DESC simpleDesc,
+		PIC_URL picUrl,
+		t.SORT_ORDER sortOrder,
+		IS_SHOW isShow,
+		FLOOR_PRICE floorPrice,
+		t.IS_NEW isNew,
+		NEW_PIC_URL newPicUrl,
+		NEW_SORT_ORDER newSortOrder
+    FROM t_prd_brand t 
+		INNER JOIN t_prd_goods t1 ON t1.BRAND_ID = t.ID
+    <where>
+    	<if test="_parameter != null">
+    		and t1.ID = #{goodsId}
+    	</if>
+    </where>
+  </select>
+
+  
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.sys.dao.IUserInfoDao">
+  <insert id="register" parameterType="com.ycs.sys.domain.po.UserInfoPo">
+  	INSERT INTO t_sys_userinfo (
+  		USR_NO,
+		USR_NM,
+		USR_PWD,
+		SEX,
+		BIRTHDAY,
+		REGISTER_TIME,
+		LAST_LOGIN_TIME,
+		LAST_LOGIN_IP,
+		USR_LEVEL_ID,
+		NICKNAME,
+		MOBILE,
+		AVATAR,
+		WEIXIN_OPENID)
+  	VALUES(
+		#{usrNo,jdbcType=VARCHAR}, 
+  		#{usrNm,jdbcType=VARCHAR},
+  		#{usrPwd,jdbcType=VARCHAR},
+  		#{sex,jdbcType=INTEGER},
+  		#{birthday,jdbcType=DATE},
+  		#{registerTime,jdbcType=TIME},
+  		#{lastLoginTime,jdbcType=TIME},
+  		#{lastLoginIp,jdbcType=VARCHAR},
+  		#{usrLevelId,jdbcType=INTEGER},
+  		#{nickName,jdbcType=VARCHAR},
+  		#{mobile,jdbcType=VARCHAR},
+  		#{avatar,jdbcType=VARCHAR},
+  		#{openId,jdbcType=VARCHAR}
+	)
+  </insert>
+  <select id="queryUserInfoByUsrNo" resultType="com.ycs.sys.domain.po.UserInfoPo">
+    SELECT 
+	    USR_NO usrNo,
+		USR_NM usrNm,
+		USR_PWD usrPwd,
+		SEX sex,
+		BIRTHDAY birthday,
+		REGISTER_TIME registerTime,
+		LAST_LOGIN_TIME lastLoginTime,
+		LAST_LOGIN_IP lastLoginIp,
+		USR_LEVEL_ID usrLevelId,
+		NICKNAME nickName,
+		MOBILE mobile,
+		AVATAR avatar,
+		WEIXIN_OPENID openId
+    FROM t_sys_userinfo t
+    <where>
+    	<if test="_parameter != null">
+    		and t.USR_NO = #{usrNo}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="queryUserInfo" parameterType="com.ycs.sys.domain.po.UserInfoPo" resultType="com.ycs.sys.domain.po.UserInfoPo">
+    SELECT 
+	    USR_NO usrNo,
+		USR_NM usrNm,
+		USR_PWD usrPwd,
+		SEX sex,
+		BIRTHDAY birthday,
+		REGISTER_TIME registerTime,
+		LAST_LOGIN_TIME lastLoginTime,
+		LAST_LOGIN_IP lastLoginIp,
+		USR_LEVEL_ID usrLevelId,
+		NICKNAME nickName,
+		MOBILE mobile,
+		AVATAR avatar,
+		WEIXIN_OPENID openId
+    FROM t_sys_userinfo t
+    <where>
+    	<if test="nickName != null">
+    		and t.NICKNAME = #{nickName}
+    	</if>
+    </where>
+  </select>
+
+  
+</mapper>

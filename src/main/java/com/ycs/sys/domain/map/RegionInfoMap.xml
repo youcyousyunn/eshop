@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.sys.dao.IAddressInfoDao">
+  <select id="queryRegionLst" parameterType="java.util.Map" resultType="com.ycs.sys.domain.po.RegionInfoPo">
+    SELECT 
+    	ID id, 
+		PARENT_ID parentId,
+		NAME name,
+		TYPE type
+    FROM t_sys_region t
+    <where>
+    	<if test="id != null">
+    		and t.ID = #{id}
+    	</if>
+    	<if test="parentId != null">
+    		and t.PARENT_ID = #{parentId}
+    	</if>
+    </where>
+  </select>
+
+  
+</mapper>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.coobo.dao.IProductInfoDao">
+  <select id="queryHotGoodsLst" resultType="com.ycs.coobo.domain.po.GoodsInfoPo">
+    SELECT 
+    	ID id,
+		NAME name,
+		GOODS_SN goodSn,
+		CATEGORY_ID categoryId,
+		BRAND_ID brandId,
+		GOODS_NUM goodsNum,
+		KEYWORD keyword,
+		GOODS_BRIEF goodsBrief,
+		GOODS_DESC goodsDesc,
+		IS_ON_SALE isOnSale,
+		IS_DELETE isDelete,
+		ATTRIBUTE_CATEGORY_ID attributeCategoryId,
+		COUNTER_PRICE counterPrice,
+		EXTRA_PRICE extraPrice,
+		IS_NEW isNew,
+		GOODS_UNIT goodsUnit,
+		LIST_PIC_URL listPicUrl,
+		RETAIL_PRICE retailPrice,
+		SELL_VOLUME sellVolume,
+		PRIMARY_PRODUCT_ID primaryProductId,
+		UNIT_PRICE unitPrice,
+		PROMOTION_TAG promotionTag,
+		PROMOTION_DESC promotionDesc,
+		IS_APP_EXCLUSIVE isAppExclusive,
+		APP_EXCLUSIVE_PRICE appExclusivePrice,
+		IS_LIMITED isLimited,
+		IS_HOT isHot,
+		SORT_ORDER sortOrder,
+		CREATE_TIME createTime
+    FROM t_prd_goods t 
+    <where>
+    	<if test="isHot != null"> 
+    		and t.IS_HOT = #{isHot}
+    	</if>
+    </where>
+    ORDER BY ID DESC
+    LIMIT 3
+  </select>
+  
+  <select id="queryNewGoodsLst" resultType="com.ycs.coobo.domain.po.GoodsInfoPo">
+    SELECT 
+    	ID id,
+		NAME name,
+		GOODS_SN goodSn,
+		CATEGORY_ID categoryId,
+		BRAND_ID brandId,
+		GOODS_NUM goodsNum,
+		KEYWORD keyword,
+		GOODS_BRIEF goodsBrief,
+		GOODS_DESC goodsDesc,
+		IS_ON_SALE isOnSale,
+		IS_DELETE isDelete,
+		ATTRIBUTE_CATEGORY_ID attributeCategoryId,
+		COUNTER_PRICE counterPrice,
+		EXTRA_PRICE extraPrice,
+		IS_NEW isNew,
+		GOODS_UNIT goodsUnit,
+		LIST_PIC_URL listPicUrl,
+		RETAIL_PRICE retailPrice,
+		SELL_VOLUME sellVolume,
+		PRIMARY_PRODUCT_ID primaryProductId,
+		UNIT_PRICE unitPrice,
+		PROMOTION_TAG promotionTag,
+		PROMOTION_DESC promotionDesc,
+		IS_APP_EXCLUSIVE isAppExclusive,
+		APP_EXCLUSIVE_PRICE appExclusivePrice,
+		IS_LIMITED isLimited,
+		IS_HOT isHot,
+		SORT_ORDER sortOrder,
+		CREATE_TIME createTime
+    FROM t_prd_goods t 
+    <where>
+    	<if test="isNew != null"> 
+    		and t.IS_NEW = #{isNew}
+    	</if>
+    </where>
+    ORDER BY ID DESC
+    LIMIT 4
+  </select>
+  
+  <select id="qryGoodsCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT count(1)
+    FROM t_prd_goods t 
+    <where>
+    	<if test="brandId != null">
+    		and t.BRAND_ID = #{brandId}
+    	</if>
+    	<if test="name != null"> 
+    		and t.NAME LIKE <![CDATA['%${name}%']]>
+    	</if>
+    </where>
+  </select>
+  
+  <select id="qryGoodsLst" parameterType="java.util.Map" resultType="com.ycs.coobo.domain.po.GoodsInfoPo">
+    SELECT 
+    	ID id,
+		NAME name,
+		LIST_PIC_URL listPicUrl,
+		RETAIL_PRICE retailPrice,
+		CREATE_TIME createTime
+    FROM t_prd_goods t 
+    <where>
+    	<if test="brandId != null">
+    		and t.BRAND_ID = #{brandId}
+    	</if>
+    	<if test="name != null"> 
+    		and t.NAME LIKE <![CDATA['%${name}%']]>
+    	</if>
+    </where>
+    ORDER BY ID DESC
+    LIMIT #{startRow}, #{offset}
+  </select>
+  
+  <select id="queryGoodsDetail" resultType="com.ycs.coobo.domain.po.GoodsInfoPo">
+    SELECT 
+    	ID id,
+		NAME name,
+		GOODS_SN goodSn,
+		CATEGORY_ID categoryId,
+		BRAND_ID brandId,
+		GOODS_NUM goodsNum,
+		KEYWORD keyword,
+		GOODS_BRIEF goodsBrief,
+		GOODS_DESC goodsDesc,
+		IS_ON_SALE isOnSale,
+		IS_DELETE isDelete,
+		ATTRIBUTE_CATEGORY_ID attributeCategoryId,
+		COUNTER_PRICE counterPrice,
+		EXTRA_PRICE extraPrice,
+		IS_NEW isNew,
+		GOODS_UNIT goodsUnit,
+		LIST_PIC_URL listPicUrl,
+		RETAIL_PRICE retailPrice,
+		SELL_VOLUME sellVolume,
+		PRIMARY_PRODUCT_ID primaryProductId,
+		UNIT_PRICE unitPrice,
+		PROMOTION_TAG promotionTag,
+		PROMOTION_DESC promotionDesc,
+		IS_APP_EXCLUSIVE isAppExclusive,
+		APP_EXCLUSIVE_PRICE appExclusivePrice,
+		IS_LIMITED isLimited,
+		IS_HOT isHot,
+		SORT_ORDER sortOrder,
+		CREATE_TIME createTime
+    FROM t_prd_goods t 
+    <where>
+    	<if test="_parameter != null"> 
+    		and t.ID = #{id}
+    	</if>
+    </where>
+    ORDER BY ID DESC
+  </select>
+
+  
+</mapper>

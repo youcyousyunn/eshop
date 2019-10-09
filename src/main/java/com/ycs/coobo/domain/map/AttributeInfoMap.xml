@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.coobo.dao.IProductInfoDao">
+  <select id="queryAttributeLstByGoodsId" resultType="com.ycs.coobo.domain.po.AttributeInfoPo">
+    SELECT 
+		t.ID id, 
+		t1.NAME name,  
+		t.VALUE value 
+		FROM t_prd_goods_attribute t
+		INNER JOIN t_prd_attribute t1 ON t1.ID = t.ATTRIBUTE_ID
+    <where>
+    	<if test="_parameter != null"> 
+    		and t.GOODS_ID = #{goodsId}
+    	</if>
+    </where>
+    ORDER BY ID ASC
+  </select>
+  
+
+  
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.coobo.dao.IProductInfoDao">
+  <select id="queryChannelLst" resultType="com.ycs.coobo.domain.po.ChannelInfoPo">
+    SELECT 
+    	ID id,
+		NAME name,
+		URL url,
+		ICON_URL iconUrl,
+		SORT_ORDER sortOrder
+    FROM t_prd_channel t 
+    ORDER BY SORT_ORDER ASC
+  </select>
+
+  
+</mapper>

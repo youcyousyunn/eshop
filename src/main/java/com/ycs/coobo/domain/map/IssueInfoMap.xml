@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.coobo.dao.IProductInfoDao">
+  <select id="queryIssueLstByGoodsId" resultType="com.ycs.coobo.domain.po.IssueInfoPo">
+    SELECT 
+		ID id,
+		GOODS_ID goodsId,
+		QUESTION question,
+		ANSWER answer
+		FROM t_prd_goods_issue t
+    <where>
+    	<if test="_parameter != null"> 
+    		and t.GOODS_ID = #{goodsId}
+    	</if>
+    </where>
+  </select>
+  
+
+  
+</mapper>

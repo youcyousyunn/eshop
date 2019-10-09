@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.coobo.dao.IProductInfoDao">
+  <select id="queryGalleryLstByGoodsId" resultType="com.ycs.coobo.domain.po.GalleryInfoPo">
+    SELECT 
+    	ID id,
+		GOODS_ID goodsId,
+		IMG_URL imgUrl,
+		IMG_DESC imgDesc,
+		SORT_ORDER sortOrder
+    FROM t_prd_goods_gallery t 
+    <where>
+    	<if test="_parameter != null"> 
+    		and t.GOODS_ID = #{goodsId}
+    	</if>
+    </where>
+    ORDER BY ID DESC
+    LIMIT 4
+  </select>
+  
+
+  
+</mapper>

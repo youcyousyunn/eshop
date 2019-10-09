@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.coobo.dao.IProductInfoDao">
+  <select id="queryTopicLst" resultType="com.ycs.coobo.domain.po.TopicInfoPo">
+    SELECT 
+    	ID id,
+		TITLE title,
+		CONTENT content,
+		AVATAR avatar,
+		PIC_URL picUrl,
+		SUBTITLE subTitle,
+		PRICE price,
+		READ_COUNT readCount,
+		SCENE_PIC_URL scenePicUrl,
+		IS_SHOW isShow,
+		SORT_ORDER sortOrder
+    FROM t_coo_topic t 
+    ORDER BY ID DESC
+	LIMIT 3
+  </select>
+  
+  <select id="qryTopicCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT COUNT(1)
+    FROM t_coo_topic t 
+    <where>
+    	<if test="name != null">
+    		and t.NAME LIKE <![CDATA['%${name}%']]>
+    	</if>
+    </where>
+  </select>
+  
+  <select id="qryTopicLst" parameterType="java.util.Map" resultType="com.ycs.coobo.domain.po.TopicInfoPo">
+    SELECT 
+    	ID id,
+		TITLE title,
+		CONTENT content,
+		AVATAR avatar,
+		PIC_URL picUrl,
+		SUBTITLE subTitle,
+		PRICE price,
+		READ_COUNT readCount,
+		SCENE_PIC_URL scenePicUrl,
+		IS_SHOW isShow,
+		SORT_ORDER sortOrder
+    FROM t_coo_topic t 
+    <where>
+    	<if test="name != null">
+    		and t.NAME LIKE <![CDATA['%${name}%']]>
+    	</if>
+    </where>
+    ORDER BY ID DESC
+  </select>
+
+  
+</mapper>

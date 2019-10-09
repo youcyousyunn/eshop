@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.coobo.dao.IProductInfoDao">
+  <select id="queryCommentByGoodsId" parameterType="java.util.Map" resultType="com.ycs.coobo.domain.po.CommentInfoPo">
+    SELECT 
+		ID id,
+		TYPE type,
+		GOODS_ID goodsId,
+		CONTENT content,
+		STATUS status,
+		USR_NO usrNo,
+		NEW_CONTENT newContent,
+		CREATE_TIME createTime
+		FROM t_coo_comment t
+    <where>
+    	<if test="type != null"> 
+    		and t.TYPE = #{type}
+    	</if>
+    	<if test="goodsId != null"> 
+    		and t.GOODS_ID = #{goodsId}
+    	</if>
+    </where>
+    LIMIT 1
+  </select>
+  
+  <select id="queryCommentPicLst" resultType="java.util.Map">
+    SELECT 
+		PIC_URL picUrl
+		FROM t_coo_comment_picture t
+    <where>
+    	<if test="_parameter != null"> 
+    		and t.COMMENT_ID = #{id}
+    	</if>
+    </where>
+  </select>
+  
+
+  
+</mapper>
